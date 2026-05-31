@@ -1,0 +1,75 @@
+# ============================================================
+# Docker Compose File Version: Compose V2 (no 'version' key needed)
+# Services: Redis (cache) + MongoDB (database)
+# Usage: docker compose up -d
+# ============================================================
+
+services:
+
+  # ----------------------------------------------------------
+  # SERVICE 1: REDIS
+  # An in-memory key-value store, commonly used for caching,
+  # session storage, and message brokering.
+  # ----------------------------------------------------------
+  redis:
+    # Official Redis image from Docker Hub, Alpine = lightweight Linux distro
+    image: redis:7-alpine
+
+    # Human-friendly name for the container (used in logs, exec, etc.)
+    container_name: test_redis
+
+    # Port mapping → "HOST:CONTAINER"
+    # Access Redis from your machine at localhost:6379
+    ports:
+      - "6379:6379"
+
+    # Override the default container startup command
+    # redis-server   → starts the Redis server
+    # --appendonly yes → enables AOF persistence (data survives restarts)
+    command: ["redis-server", "--appendonly", "yes"]
+
+    # Mount a named volume so Redis data persists even if the container stops
+    # redis-data (host volume) → /data (inside the container)
+    volumes:
+      - redis-data:/data
+
+
+  # ----------------------------------------------------------
+  # SERVICE 2: MONGODB
+  # A NoSQL document database that stores data as JSON-like
+  # documents. Commonly used for flexible/unstructured data.
+  # ----------------------------------------------------------
+  mongo:
+    # Official MongoDB image from Docker Hub, version 7
+    image: mongo:7
+
+    # Human-friendly name for the container
+    container_name: test_mongo
+
+    # Port mapping → "HOST:CONTAINER"
+    # Access MongoDB from your machine at localhost:27017
+    ports:
+      - "27017:27017"
+
+    # Environment variables passed into the container at runtime
+    environment:
+      # Creates a default database with this name on first startup
+      # Note: This does NOT create a user — use MONGO_INITDB_ROOT_USERNAME
+      #       and MONGO_INITDB_ROOT_PASSWORD for authentication
+      MONGO_INITDB_DATABASE: test_redis
+
+    # Mount a named volume so MongoDB data persists even if the container stops
+    # mongo-data (host volume) → /data/db (inside the container)
+    volumes:
+      - mongo-data:/data
+
+
+# ----------------------------------------------------------------
+# NAMED VOLUMES
+# Managed by Docker — stored under /var/lib/docker/volumes/
+# These outlive containers, so your data is safe across restarts.
+# To delete: docker compose down -v  ⚠️ (this wipes all data!)
+# ----------------------------------------------------------------
+volumes:
+  redis-data:   # Stores Redis AOF/RDB persistence files
+  mongo-data:   # Stores MongoDB collections and indexes
