@@ -12,7 +12,7 @@ app.get("/redis", async(req,res)=> {
 })
 
 app.get("/mongo", async(req,res)=> {
-    const url = process.env.MONGO_URL || 'mongodb://localhost:27017/test_redis';
+    const url = process.env.MONGO_URL || 'mongodb://localhost:27017/mongo_redis';
     if(mongoose.connection.readyState === 0) {
         await mongoose.connect(url)
     }
