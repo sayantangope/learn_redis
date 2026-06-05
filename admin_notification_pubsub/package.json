@@ -1,5 +1,5 @@
 {
-  "name": "site-banner",
+  "name": "admin_notification_pubsub",
   "version": "1.0.0",
   "description": "",
   "homepage": "https://github.com/sayantangope/learn_redis#readme",
@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon  src/index.js"
+    "dev": "nodemon  src/api.js"
   },
   "dependencies": {
     "express": "^5.2.1",
