@@ -1,0 +1,26 @@
+{
+  "name": "live_leaderboard",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/sayantangope/learn_redis#readme",
+  "bugs": {
+    "url": "https://github.com/sayantangope/learn_redis/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayantangope/learn_redis.git"
+  },
+  "license": "ISC",
+  "author": "Sayantan Gope",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon  src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "ioredis": "^5.11.0",
+    "nodemon": "^3.1.14"
+  }
+}
